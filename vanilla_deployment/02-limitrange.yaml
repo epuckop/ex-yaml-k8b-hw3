@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: vanilla-default-limits
+  namespace: vanilla-deployment
+spec:
+  limits:
+    - type: Container
+      defaultRequest:     # Default resource requests for containers if not specified
+        cpu: 250m         ## Default CPU request
+        memory: 512Mi     ## Default memory request
+      default:            # Default resource limits for containers if not specified
+        cpu: 1            ## Default CPU limit
+        memory: 2Gi       ## Default memory limit
+      min:                # Minimum resource limits that can be set for containers if specified
+        cpu: 100m         ## Minimum CPU limit that can be set
+        memory: 256Mi     ## Minimum memory limit that can be set
+      max:                # Maximum resource limits that can be set for containers if specified
+        cpu: 2            ## Maximum CPU limit that can be set
+        memory: 2Gi       ## Maximum memory limit that can be set
