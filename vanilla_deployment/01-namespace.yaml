@@ -1,0 +1,9 @@
+apiVersion: 1v
+kind: Namespace
+metadata:
+  name: vanilla-deployment
+  labels:
+    name: vanilla-deployment
+    app: vanilla-deployment
+    environment: development
+    team: devops
