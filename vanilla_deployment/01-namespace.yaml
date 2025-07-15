@@ -1,4 +1,4 @@
-apiVersion: 1v
+apiVersion: v1
 kind: Namespace
 metadata:
   name: vanilla-deployment
