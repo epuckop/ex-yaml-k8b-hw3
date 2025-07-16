@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agent-ingress
+  namespace: vanilla-deployment
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: daemonset.example.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: daemonset-agent-service
+                port:
+                  number: 80
+    - host: statefulset.example.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: statefulset-agent-service
+                port:
+                  number: 80
+    - host: stateless.example.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: stateless-agent-service
+                port:
+                  number: 80

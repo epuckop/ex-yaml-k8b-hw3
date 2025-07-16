@@ -5,10 +5,10 @@ metadata:
   namespace: vanilla-deployment
 spec:
   hard:
-    requests.cpu: "1"             # minimal CPU requests for all pods in the namespace
-    requests.memory: "1Gi"        # minimal memory requests for all pods in the namespace
-    limits.cpu: "4"               # maximum CPU limits for all pods in the namespace
-    limits.memory: "4Gi"          # maximum memory limits for all pods in the namespace
-    persistentvolumeclaims: "1"   # maximum number of persistent volume claims in the namespace
-    requests.storage: "10Gi"      # total storage requested by persistent volume claims in the namespace
+    requests.cpu: "1"             # minimal CPU requests for all pods in the namespace. Pay attention that total_requests_cpu = default_request_cpu_per_pod × replicas
+    requests.memory: "2Gi"        # minimal memory requests for all pods in the namespace. Pay atemption that total_requests_memory = default_request_memory_per_pod × replicas
+    limits.cpu: "4"               # maximum CPU limits for all pods in the namespace. Pay attention that total_limits_cpu = default_limit_cpu_per_pod × replicas
+    limits.memory: "8Gi"          # maximum memory limits for all pods in the namespace. Pay attention that total_limits_memory = default_limit_memory_per_pod × replicas
+    persistentvolumeclaims: "10"  # maximum number of persistent volume claims in the namespace. Pay attention that total_pvc = default_pvc_per_statefulset_pod × replicas + PVCs for other pods
+    requests.storage: "10Gi"      # total storage requested by persistent volume claims in the namespace. Pay attention that total_storage_requests = default_storage_request_per_pvc × total_pvc
     pods: "4"                     # maximum number of pods in the namespace

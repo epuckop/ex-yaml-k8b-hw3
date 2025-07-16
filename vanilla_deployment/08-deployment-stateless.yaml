@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stateless-agent-deployment
+  namespace: vanilla-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stateless-agent-app
+  template:
+    metadata:
+      labels:
+        app: stateless-agent-app
+    spec:
+      serviceAccountName: vanilla-sa
+      containers:
+        - name: stateless-agent-app
+          image: epuckop/flask-app:latest
+          ports:
+            - containerPort: 34987

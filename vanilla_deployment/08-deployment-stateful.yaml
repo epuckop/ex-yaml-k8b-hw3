@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: statefulset-agent-service
+  namespace: vanilla-deployment
+spec:
+  clusterIP: None
+  selector:
+    app: statefulset-agent-app
+  ports:
+    - port: 80
+      targetPort: 34987
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-agent-deployment
+  namespace: vanilla-deployment
+spec:
+  serviceName: statefulset-agent-service
+  replicas: 2
+  selector:
+    matchLabels:
+      app: statefulset-agent-app
+  template:
+    metadata:
+      labels:
+        app: statefulset-agent-app
+    spec:
+      serviceAccountName: vanilla-sa
+      containers:
+        - name: statefulset-agent-app
+          image: epuckop/flask-app:latest
+          ports:
+            - containerPort: 34987
+          volumeMounts:
+            - name: statefulset-agent-volume
+              mountPath: /app/data
+  volumeClaimTemplates:
+    - metadata:
+        name: statefulset-agent-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: hostpath

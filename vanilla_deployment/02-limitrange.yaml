@@ -7,7 +7,7 @@ spec:
   limits:
     - type: Container
       defaultRequest:     # Default resource requests for containers if not specified
-        cpu: 250m         ## Default CPU request
+        cpu: 250m         ## Default CPU request.
         memory: 512Mi     ## Default memory request
       default:            # Default resource limits for containers if not specified
         cpu: 1            ## Default CPU limit
